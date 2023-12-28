@@ -1,0 +1,36 @@
+data class Tarefa(val id: Int, val descricao: String, var concluida: Boolean = false)
+
+class GerenciadorTarefas {
+    private val listaTarefas = mutableListOf<Tarefa>()
+
+    fun adicionarTarefa(descricao: String) {
+        val novaTarefa = Tarefa(listaTarefas.size + 1, descricao)
+        listaTarefas.add(novaTarefa)
+        println("Tarefa adicionada: $descricao")
+    }
+
+    fun marcarComoConcluida(id: Int) {
+        val tarefa = listaTarefas.find { it.id == id }
+
+        if (tarefa != null) {
+
+            
+            tarefa.concluida = true
+            println("Tarefa ${tarefa.descricao} marcada como concluída.")
+        } else {
+            println("Tarefa não encontrada.")
+        }
+    }
+
+    fun exibirTarefas() {
+        if (listaTarefas.isEmpty()) {
+            println("Não há tarefas cadastradas.")
+        } else {
+            println("Lista de Tarefas:")
+            listaTarefas.forEach {
+                val status = if (it.concluida) "Concluída" else "Pendente"
+                println("${it.id}. ${it.descricao} - $status")
+            }
+        }
+    }
+}
